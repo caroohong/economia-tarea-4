@@ -41,9 +41,14 @@ import numpy as np
 x = np.arange(0,16,0.1)
 y19 = 1.05*x-1.793505
 y21= 1.05*x-1.982295
+
+xdata = list(range(10))
+ydata = [_*2 for _ in xdata]
+plt.plot(xdata, ydata, 'b')
+
 #param_i = 15.49,0,0.76,1.05
 #m = mercado(*param_i) 
-param_i = 15.49,1.7081,0.76,1.05
+param_i = 15.49,0,0.76,1.05 #original
 m = mercado(*param_i) 
 
 q_max = m.cantidad_equilibrio() * 2
@@ -54,15 +59,17 @@ ps = m.oferta(q_grid)
 fig, ax = plt.subplots()
 ax.plot(q_grid, pd, lw=2, alpha=0.6, label='demanda')
 ax.plot(q_grid, ps, lw=2, alpha=0.6, label='oferta')
-ax.plot(x,y19, label='oferta 19%')
-ax.plot(x,y21, label='oferta 21%')
+#ax.plot(x,y19, label='oferta 19%')
+#ax.plot(7.46282044198895,x, label='19% impuesto')
+
+plt.axvline(x=8.558011049723756, ymin=0, ymax=7.46282044198895, color='red')
+ax.plot(x,y21, color= 'red', label='oferta 21%')
 ax.set_xlabel('cantidad', fontsize=14)
 ax.set_xlim(0, q_max)
 ax.set_ylabel('precio', fontsize=14)
 ax.legend(loc='lower right', frameon=False, fontsize=14)
 ax.set(title='Oferta, Demanda y Equilibrio de mercados')
 plt.show()
-
 print("Excedente productor =",m.excedente_productor())
 print("Excedente consumidor =",m.excedente_consumidor())
 print("Excedente total =",m.excedente_total())
